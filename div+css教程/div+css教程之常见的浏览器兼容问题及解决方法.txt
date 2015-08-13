@@ -1,0 +1,217 @@
+div+css教程之常见的浏览器兼容问题及解决方法
+
+1.图片下方出现几像素的空白间隙
+问题说明：这个问题在ie6和ff（火狐）下经常见到,例如 <div><img src=""/></div>这个图片下面会有一条空白间隙，
+解决方法：给图上一个垂直方向的属性如:vertical-align: top(任意一个就行middle);这个问题从而延伸到，object(视频)和textarea在火狐下也会出现类似的问题，解决方法一样。细心的朋友会发现在第二节ahuing的重置代码里就有这样一个全局定义object,textarea,img{vertical-align: top;}
+
+2.IE6双倍margin的BUG(双边距)
+问题说明：这是ie6一个著名的bug，当一个元素向一边浮动时，其它同一个方向如果有margin的话，ie6就会产生双倍的margin。例如：<div style="float: left;margin-left: 10px;"></div>在ie6下显示会有margin-left:20px的距离
+解决方法：加个_display:inline:属性，例如<div style="float: left;margin-left: 10px;_display: inline;"></div>
+
+3.ie6下的浮动元素和非浮动元素间出现3像素BUG
+问题说明：这也是ie6一个著名的bug,当一个元素浮动时，同级别的文字没有浮动，在ie6下它们之间就会产生3个像素的bug。例如：<div><img style="float: left;" src=""/>摘要摘要摘要摘要</div>,图片和文字就会出现3像素
+解决方法：方法一，两个元素都浮动，如：<div><img style="float: left;" src=""/><span style="float: left;">摘要摘要摘要摘要</span></div>;方法二，这种设计时一般图片和文字要有间隙的，做个ie6的hack就行,如：<div><img style="float: left;" src=""/><span style="margin-right: 5px; _margin-right: 2px;">摘要摘要摘要摘要</span></div>
+
+4.li在IE中底部空行
+问题说明：当li里面有两个以上的浮动元素时，li的下面就会产生一条空白间隙，例如 
+<ul class="tlist">
+    <li><span style="float: left;">栏目</span><a style="float: left;" href="#" target="_blank">标题标题标题</a></li>
+</ul>
+解决方法：这个问题和第一个问题很相似，解决方法也是一样，在li上加个垂直方向的属性，例如：
+<ul class="tlist">
+    <li style="vertical-align: top;"><span style="float: left;">栏目</span><a style="float: left;" href="#" target="_blank">标题标题标题</a></li>
+</ul>
+
+5.IE6样式中文注释后引发失效
+
+问题说明：这是ie6 出现的奇怪现象。这是由于css 和html 的编码不同所引致,满足下面条件就会引起注释下面的样式不起作用：
+1). css有中文注释
+2). css为ANSI编码
+3). html为utf-8编码
+
+解决方法：
+1). 去掉中文注释，用英文注释或者多打几个“*”，这是ahuing在之前的教程里提到的，例如： /*** 注释 ***/
+2). 统一css 和 html 的编码
+
+建议采用第二种解决方法。ps： css为uft-8  html 为ANSI 貌似不会出现失效的情况。
+
+6.IE6出现重复字符(文字溢出)
+
+问题说明：一个容器包含2两个具有“float”样式的子容器，第二个容器的宽度大于父容器的宽度，或者父容器宽度减去第二个容器宽度的值小于3，在第二个容器前存在注释（这也是为什么此bug也叫做“IE6注释bug”的原因）。例如下列代码：
+
+<!DOCTYPE html PUBLIC "-//W3C//liD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/liD/xhtml1-transitional.lid">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>标题</title>    
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+.a{width:205px;}
+.b{float: left;width: 50px; background: black;color: #fff;margin-right: 5px;overflow: hidden;}
+.c{float: left;width: 150px;background: red;}
+</style>
+</head>
+<body>
+<div class="a">
+    <div class="b">测试测试测试测试测试测试测试111111111111</div>
+    <!-- 注释 -->
+    <div class="c">测试测试测试测试测试测试测试2222222222</div>
+</div>
+</body>
+</html>
+
+解决方法：
+为何会出现重复文字，谁也没说清楚，包括官方，这个问题，ahuing只在给朋友调试样式时见过，自己写的代码没见过，所以认识这个bug有点晚，ahuing个人认为，ie6将注释也当成内容存在。
+如何消灭重复文字，只要让上面任何一个条件不满足即可，
+
+改变结构，不出现【一个容器包含2两个具有“float”样式的子容器】的结构。
+
+1).减小第二个容器的宽度，使父容器宽度减去第二个容器宽度的值大于3。
+2).去掉所有的注释。
+3).在第二个容器后面加一个或者多个<div style="clear"></div>来解决。
+4).给溢出文字的标签加position: relative;属性 
+
+6.png图片在IE6下出现透明或背景变灰的bug;
+
+问题说明：这里的png图片是指32位和24位的，8位的png图片透明ie6是支持的。
+
+解决方法：
+1)使用滤镜，语法如下
+.image-style { background-image: none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="filename.png", sizingMethod="scale"); }
+注意：使用滤镜需要损耗性能。
+
+2)给IE6单独制作一张.gif图片(或者8位的png图片)，打上hack
+.image-style{ background:transparent url("filename.png") no-repeat scroll 0 0;_background-image:url("filename.gif"); }
+这种方法只需要在切图时多存储一份.gif格式的图片，一般采用这种方法。
+
+7.让position:absolute弹出层在flash上面 
+
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockw
+ave/cabs/flash/swflash.cab#version=6,0,29,0" width="300" height="190">
+<param name="movie" value="flash.swf" />
+<param name="quality" value="high" />
+<param name="wmode" value="transparent" />
+<embed src="flash.swf"wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashp
+layer" type="application/x-shockwave-flash" width="300" height="190"></embed>
+</object>
+
+不多说了，直接复制代码，然后将两个flash.swf改为自己的就行了（主要是此代码<param name="wmode" value="transparent" />）
+
+8.position:absolute定位在IE6下存在left和bottom相对最外层视窗（body）定位的bug:
+
+问题说明：由于在IE6下，相对定位的元素没有获得IE内部的haslayout属性，因此不创建新的定位上下文，所以绝对定位的元素相对于视口进行定位。
+
+解决方法：
+1)设置_height：1%；//小的高度不会对实际高度造成影响;例如：<div style="position: relative;_height: 1%;">内容内容内容内容内容内容内容<div style="position: absolute;left: 10px;top: 10px;"></div></div>
+2)相对定位的祖先元素设置过高度和宽度。
+3)相对定位的祖先元素设置_zoom:1,用于触发元素的layout属性。
+
+9.position:absolute定位在IE6下z-index失效的bug:
+
+问题说明：在ie6下给浮动层设置z-index失效，例如：正常区块1会在区块2之上，但是IE6不行
+<div style="position: relative;"><div style="position: absolute;z-index: 10;">区块1</div></div> 
+<div style="position: relative"><div style="position: absolute;z-index: 5;">区块2</div></div>
+解决方法：ie6只识别父层的z-index，所以我们可以给父层也加一个z-index
+<div style="position: relative;z-index: 10;"><div style="position: absolute;z-index: 10;">区块1</div></div> 
+<div style="position: relative"><div style="position: absolute;z-index: 5;">区块2</div></div>
+另外一个解决方法就是后面标签的z-index总是比它前面的z-index高，有些情况下可以将两者的前台顺序调换
+
+10.还是position,IE6下对position：fixed不支持的bug
+
+问题说明：position：fixed主要用于像客服一样的浮动层，但是ie6却不支持，问题的原因是IE6下的fixed元素绝对定位位置是针对html元素的，而滚动条则是针对body元素的
+
+解决方法：
+用绝对定位模拟一个
+body{background-image:("xx.gif");}/*一张不存在的图片，就是完全透明的*/
+.fixed{_postion:absolute;expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight))}//底部
+expression(eval(document.documentElement.scrollTop));/*头部*/
+expression(eval(document.documentElement.clientHeight/2+document.documentElement.scrollTop-80));/*右侧*/
+
+11.再来个position问题，ie6让绝对定位的层在select的上面
+
+问题说明：绝对定位的层在ie6下不管对其的z-index给多大的值它始终在select控件的下面
+
+解决方法：
+1)通过js控制select的显示和隐藏(有弹出层时隐藏select)，不过当div只是遮住select的一半时，整个都会隐藏，不适合一些情况。
+
+2)用iframe遮盖select，iframe的z-index要比select高,让弹出层和iframe重合。
+<div style="position: absolute;"></div>
+<iframe scrolling="no" frameborder="0" style="width:100px; height:100px; top:320px; left:60px; background-color:transparent; position:absolute; z-index:-1;"></iframe>
+
+12.哈哈，最后一个position问题，ie6下position:absolute不显示
+
+问题说明：例如：下面的代码，a1绝对定位，a2，a3浮动，注意样式当盒子box的宽度-（a2+a3）<3时，a1就会不显示，可以直接复制代码保存后预览，这种情况的机率很小，但它出现时，会让你摸不着方向
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+.box{position: relative;background: black;color: #fff;height: 50px;width: 100px;}
+.a1{position: absolute;background: red;left: 0;top:30px;}
+.a2{float: left;background: purple;width: 48px;height: 40px;}
+.a3{float: left;background: gray;width: 50px;height: 40px;}
+</style>
+<div class="box">
+<div class="a1">区块1</div>
+<div class="a2">区块2</div>
+<div class="a3">区块3</div>
+</div>
+解决方法：
+1)在绝对定位的层和浮动层之间加一个清除浮动的代码，例如：<div style="clear: both;height: 0;overflow: hidden;font-size: 0;line-height: 0;"></div>
+2)可以把绝对定位的层放在所有浮动层的最后面，再在绝对定位的层上加个清除浮动，如：.a1{position: absolute;background: red;left: 0;top:30px;clear:both;}
+
+13.a链接点击的难看外框的方法：
+
+IE6下在标签里设置hideFocus=true,其他浏览器对a设置：outline:none
+例如：
+<a href="###" hideFocus="true" title=".."/>
+a{outline:none}
+
+14.IE6不支持min-height/max-height/min-width/max-width的bug
+
+问题说明：无
+
+解决方法：根据IE6的特性模拟出来
+
+height:auto!important;
+min-height: x px;/*需要的最小高度*/
+height: x px
+
+15.ie6边框出现断线的bug
+问题说明：当边框内的元素有激动时，没有清除浮动，滑动滚动条会出现断线的问题。例如
+<style>
+.box{border: 1px solid #ccc;}
+.plist li{float: left;}
+</style>
+<div class="box">
+<ul class="plist">
+	<li><a href="#" target="_blank"><img width="" height="" src="pic/s.png"/></a></li>
+	<li><a href="#" target="_blank"><img width="" height="" src="pic/s.png"/></a></li>
+	<li><a href="#" target="_blank"><img width="" height="" src="pic/s.png"/></a></li>
+</ul>
+</div>
+解决方法：原因是box没有haslayout
+1)加个属性_height:1%或者_zoom:1,这是ahuing常用字的方法
+2)清除浮动也可以,在ul下加<div style="height: 0;overflow: hidden;clear: both;"></div>
+3）给box加个背景颜色也行
+
+16. IE6中伪类:hover的使用及BUG
+
+问题说明：ie6是不支持除a标签以外的:hover的，例如：<style>.test:hover{background: red;width:50px;height: 50px;}</style><div class="test"></div>
+解决方法：
+1）将a标签display:black,例如：<style>.test{display: block;} .test:hover div{background: red;width:50px;height: 50px;}</style><a class="test" href="###"><div></div></a>;不过这样做貌似不符合标准
+2）用js或者jq解决
+
+17.原来IE6是可以支持!important的
+
+.demo { color:#F00!important; color:#000; }/*IE6显示错误理解：.demo显示为黑色*/
+/*而下面IE6是正确理解的：.demo显示为红色*/
+.demo { color:#F00!important;}
+.demo { color:#000; }
+
+18.ie下空格的大小和ff不一样
+
+问题说明：有时我们在布局时需要用到空格来对齐文本，例如：密&nbsp;&nbsp;码和用户名，这样写才可以对齐，而在ie上面未必是这样的
+解决方法：将字体设置为宋体，即：font-family: simsun;
+
+19.容器中连续的英文或者数字，不自动换行
+
+问题说明：<div style="width: 50px;">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</div>
+解决方法：<div style="width: 50px; word-wrap: break-word;">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</div>

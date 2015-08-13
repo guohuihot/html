@@ -1,0 +1,280 @@
+div+css教程之浮动
+
+本节ahuing介绍下CSS Float的基本原理，并介绍浮动的清除方法，不过在此之前您最好了解下ie的haslayout是什么东东。 
+
+1.float属性有四个可用的值：Left,Right,None (默认的),Inherit 。
+
+Left 和Right 分别浮动元素到各自的方向，None (默认的) 使元素不浮动，Inherit 将会从父级元素获取float值。
+
+基本的浮动原理
+
+任何元素 element 都可以被浮动。段落、div、list、tables,以及图像都可以被浮动，事实上即使是像 span 和 strong 这样的行内置元素也可以很好地进行浮动。
+任何定义为 float 的元素自动被设置为一个"块级元素",这句话很重要,这表示我们可以直接定义它的高(height)和宽(width)，因此有些设计人员会定义一个全局浮动来布局，不过ahuing不会这么做，也不建议你们这样做。没有指定宽度的float标签将会收缩并包裹着它的内容，因此，内部带有图片的一个float标签将和图片一样宽，带有文本的一个浮动标签将与该浮动标签内的最长文本行一样宽。浮动是个很有用的属性，它可以在页面里布局成你想要的效果，在布局有往往有些元素有间隙，或者没有对齐也可以用浮动消除掉，但是浮动也会带来一些意想不到的问题，这里面要记住，有浮动属性时，当用不到时就要清除。
+
+2．float浮动元素不占据正常文档流空间
+
+由于浮动块不在文档的普通流中，所以文档的普通流中的块表现得就像浮动块不存在一样,看个例子：
+1)正常文档流代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+</style>
+<div class="box1">
+
+<div class="box1_1"><span>块1</span></div>
+
+<div class="box1_2"><span>块2</span></div>
+
+<div class="box1_3"><span>块3</span></div>
+
+</div>
+2)当块1向右浮动时，脱离文档流并且向右移动，直到它的右边缘碰到包含块的右边缘。
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+</style>
+<div class="box1">
+
+<div class="box1_1 fr"><span>块1</span> float:right </div>
+
+<div class="box1_2"><span>块2</span></div>
+
+<div class="box1_3"><span>块3</span></div>
+
+</div>
+3)块1向左浮动，脱离文档流并且向左移动，直到它的左边缘碰到包含块的左边缘;IE8和Firefox中因为它不再处于文档流中，所以它不占据空间，实际上覆盖住了块 2，使块2从视图中消失。而块2的内容却显示在块1未浮动时块2所处的位置。而IE6和IE7中紧跟在浮动元素块1的块2也会跟着浮动。
+
+代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+</style>
+<div class="box1">
+
+<div class="box1_1 fl"><span>块1</span> float:left </div>
+
+<div class="box1_2"><span>块2</span></div>
+
+<div class="box1_3"><span>块3</span></div>
+
+</div>
+3.浮动“缺陷”
+
+1)使用浮动(float)的一个比较疑惑的事情是他们怎么影响包含他们的父元素的。如果父元素只包含浮动元素，且父元素未设置高度和宽度的时候。那 么它的高度就会塌缩为零。如果父元素不包含任何的可见背景，这个问题会很难被注意到，但是这是一个很重要的问题。在这里我们可以称为“缺陷”。
+
+代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+</style>
+<div class="box3">
+
+<div class="box1_1 fl"><span>块1</span> float:left</div>
+
+<div class="box1_2 fl"><span>块2</span> float:left</div>
+
+<div class="box1_3 fl"><span>块3</span> float:left</div>
+
+</div>
+2)解决“缺陷”问题有以下三个方法,也就是清除浮动的方法
+在使用float元素的父元素结束前加一个高为0宽为0且有clear:both样式的div 如下图
+
+代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;width: 0;height: 0;overflow: hidden;font-size: 0;}
+</style>
+<div class="box1">
+
+<div class="box1_1 fl"><span>块1</span> float:left </div>
+
+<div class="box1_2 fl"><span>块2</span> float:left</div>
+
+<div class="box1_3 fl"><span>块3</span> float:left</div>
+
+<div class="clear"></div>
+
+</div>
+在使用float元素的父元素添加overflow:hidden;这是现代浏览器常用的方法,但是ie6,ie7不支持，可以用zoom:1或者*height: 1%;来解决，所以通常情况下我们会两个结合起来用
+
+代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;width: 0;height: 0;}
+.hidden{overflow: hidden;}
+.iehack{zoom:1}
+.iehack1{*height: 1%;}
+</style>
+<div class="box1 hidden iehack">
+
+<div class="box1_1 fl"><span>块1</span> float:left </div>
+
+<div class="box1_2 fl"><span>块2</span> float:left</div>
+
+<div class="box1_3 fl"><span>块3</span> float:left</div>
+
+</div>
+3 .使用after伪对象清除浮动 
+
+代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;width: 0;height: 0;}
+.hidden{overflow: hidden;}
+.iehack{zoom:1}
+.iehack1{*height: 1%;}
+.box1:after {content:"\20";display:block;height:0;clear:both;}/*** 意思在box1里内容的最后面放一个空格***/
+.box1 {zoom:1} 
+</style>
+<div class="box1">
+
+<div class="box1_1 fl"><span>块1</span> float:left </div>
+
+<div class="box1_2 fl"><span>块2</span> float:left</div>
+
+<div class="box1_3 fl"><span>块3</span> float:left</div>
+
+</div>
+4. IE6双边距问题
+
+IE6双边距问题：一个向左浮动(float:left)的元素放置进一个容器盒(box)，并在该元素上使用了左边界(margin-left) 在ie6内便产生双倍边距，这个Bug仅当浮动边界和浮动元素的方向相同时出现在浮动元素和容器盒的内边缘之间，在这之后的任意有着相似边界的浮动元素不会呈现双倍边界。如下代码
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;width: 0;height: 0;overflow: hidden;font-size: 0;}
+.ml10{margin-left:10px}
+</style>
+<div class="box1">
+
+<div class="box1_1 fl ml10"><span>块1</span> float:left<br />margin-left:10px</div>
+
+<div class="clear"></div>
+
+<div class="box1_2"><span>块2</span></div>
+
+<div class="box1_3"><span>块3</span></div>
+
+</div>
+
+解决IE6双边距问题是在浮动元素上加个属性 display:inline;
+
+5.IE6文本产生3象素的bug
+
+·浮动IE6文本产生3象素的bug时指挨着浮动元素的文本会神奇的被踢出去3像素，好像浮动元素的周围有一个奇怪的力场一样。如代码
+
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;height:190px;}
+.box1_1,.box1_2,.box1_3{width: 50px;height:50px;background: red;}
+.box1_2{background: blue;height:60px;}
+.box1_3{background: orange;height:70px;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;width: 0;height: 0;overflow: hidden;font-size: 0;}
+.ml10{margin-left:10px}
+</style>
+<div class="box1">
+
+<div class="box1_1 fl ml10"><span>块1</span> float:left<br />margin-left:10px</div>
+
+<div class="clear"></div>
+
+<div class="box1_2"><span>块2</span></div>
+
+<div class="box1_3"><span>块3</span></div>
+
+</div>
+
+
+解决浮动IE文本产生3象素的方法
+
+1）.左边对象浮动，右边采用外补丁的左边距来定位。
+
+2）第二种方法就是将文本也浮动
+
+
+6.IE6,IE7 中，底边距 bug
+
+·IE6,IE7 中，底边距 bug是当浮动父元素有浮动子元素时，这些子元素的底边距会被父元素忽略掉。
+
+代码：
+<style>
+*{margin: 0;padding: 0;font-size: 12px;}
+ul,li{list-style: none;}
+.box1{width: 190px;background: black;}
+.box1_1,.box1_2{width: 50px;background: red;height: 50px;}
+.box1_2{background: blue;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;width: 0;height: 0;overflow: hidden;font-size: 0;}
+.ml10{margin-left:10px}
+</style>
+<ul>
+    <li class="box1">
+    
+        <div class="box1_1 fl">块1</div>
+        
+        <div class="box1_2 fl">块2</div>
+    
+    </li>
+    <li class="box1">
+    
+        <div class="box1_1 fl">块1</div>
+        
+        <div class="box1_2 fl">块2</div>
+    
+    </li>
+</ul>
+运行代码可以看到两个li上下出现一条间隙，解决办法是在li上加个垂直的属性，例如.box1{width: 190px;background: black; *vertical-align: top;}

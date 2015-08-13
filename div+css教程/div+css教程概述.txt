@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//liD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/liD/xhtml1-transitional.lid">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>标题</title>    
+<meta content="{keyword}" name="keywords"/>
+<meta content="{description}" name="description"/>
+<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible"/>
+</head>
+<body>
+ahuing写这个div+css教程主要是针对一些有网页基础但又不精的朋友们的，是用来做提升的进价教程，如果你是高手就不用往下看了，如果是新手，建议你先了解下html标记语言以及层叠样式表(css)再来看吧，当然你也可以直接看，不过会很吃力;
+本教程只讲如何将一个做好的效果图切成div+css的静态网页;内容偶尔会参加一些常字的js效果，不会有套程序和效果图处理的部分，目录如下：
+1.制作html的工具
+    1)切图工具
+    2)div+css编辑器
+    3)调试工具
+    4)测试工具及技巧
+    5)小工具（取色，图片压缩，代码压缩）
+   
+    
+2.基本概念及区别
+    1)行级元素和块级元素
+    2)继承
+    3)盒子模型
+    4)注释
+    5)代码属性重置
+    
+3.文件夹、文件命名、样式命名、代码编写规范
+    1)样式文件及html文件命名方法
+    2)样式命名方法
+4.常见的浏览器兼容问题及解决方法
+    1)hack的写法
+    2)兼容问题
+6.浮动
+5.定位的方法及技巧
+    1)相对定位
+    2)绝对定位
+    3)常见的兼容问题
+7.网页性能及效率
+    1)html,css代码优化
+    2)css sprites的应用
+8.布局思想
+    
+9.常见的网页模块的布局方法
+    1)图文混排
+    2)导航
+    3)滑动门
+    4)搜索条
+    5)带时间的列表
+    6)模拟的表格
+    7)图片列表
+    8)圆角实现
+    9)两种幻灯片效果(div+css+js)
+特别声明：ahuing不是什么牛人，谈不上什么高手，只是多做了几个网页而已，在这里只是经验分享及交流，转载请注明：“原谅来自：http://www.ahuing.com”
+</body>
+</html>

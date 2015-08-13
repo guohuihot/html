@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//liD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/liD/xhtml1-transitional.lid">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>标题</title>    
+<meta content="{keyword}" name="keywords"/>
+<meta content="{description}" name="description"/>
+<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible"/>
+</head>
+<body>
+div+css教程之命名规范
+命名规范可以提高html制作的效率及后续代码的可维护性，本文要讲的命名规范包括文件夹、样式文件html文件命名方法以及样式命名方法
+1.文件夹的命名
+我们在制作html时一般包括html源文件、css文件、images文件、js文件；而文件夹命名也是对应的，分别为一个html、css(也可以是style)、images、js，文件夹里可以放一些必需的文件例如：global.css,jquery.js。除此之外制作时还可以建个效果图文件、缩略图文件夹s(也可以是其它)，效果图是方便以后预览页面时有图做对比，而缩略图文件夹是在制作html时会有很多缩略图和广告图片的调用(切记不要把这些图片放在images里，因为这些图片以后是要删除的)，我们就可以都调用这一个缩略图，而这个文件夹在真正套程序时是可以删除的。ahuing会做一个模板文件夹，把以上的文件夹和必要的文件放里面，当需要制作模板时，直接复制一个模板文件夹出来就行了，然后直接开工，这样可以提高制作效率^_^。
+2.样式文件html文件命名方法
+样式文件是影响一个网站的性能之一，如果样式文件太大的话，加载就会慢以至影响的浏览器的渲染速度，解决这个问题的方法就是将文件分成若干个小文件来加载。文件如下：
+1)全局样式：global.css；头部和底部样式也可以写在里面
+2)整站首页样式：index.css
+3)频道首页(封面)：index_频道名称(请用英文名称).css，例如：视频频道首页(封面) index_video.css
+4)列表页：list.css，遇到不同的列表页也可以，list_video.css
+5)内容页：content.css（article.css）
+除此之外，有的网站分的细的可以做字体样式：font.css、链接样式：link.css、或者IE6.css(这个样式在以后ie6淘汰时可以直接删除)
+html文件的命名和样式文件的命名差不多的基本上是对应的,包括js文件也可以这样
+3.样式命名方法
+如果只有几个样式也许你会记得很清楚。可是要是多了，你还是没有规范的命名，比如有时就直接用汉语拼音或拼音的首字母代替恐怕连你自己都看不出是什么意思，别说再让其它的维护人员看了。下面是一些相关的DIV+CSS样式表id和class的常用命名规则，给大家参考一下：
+
+页头  header  登录条 loginBar    标志  logo    侧栏  sideBar 广告  Banner  导航  nav 子导航 subNav  菜单  menu   子菜单 subMenu 搜索  search  滚动  scroll  页面主体    main    内容  content 标签页 tab 文章列表   list    提示信息    msg 小技巧 tips    栏目标题    title   面包屑 breadCrumb  加入joinus指南  guild   服务  service 热点  hot 新闻  news    下载  download    注册  regsiter 状态  status  按钮  btn 投票  vote  合作伙伴    partner友情链接    friendLink 页脚  footer  版权  copyRight
+除以上，ahuing经常用的还有，栏目标题 colTit 文字列表 tList 图片列表 pList 图文 pTxt 图文列表pTxtList
+实际制作中DIV+CSS样式表的id命名也会经常用大小写来区分，比如主导航就是mainNav。也可以使用"类型+变量名称"的规则来命名，比如写一个红色字体的class,可以这样写.fRed {color:red;}(f是font 字体的缩写),这就是匈牙利命名法。除此之外也可以将两个单词之间用“-”连接f-red{color:red}.以上写法大大增强代码的可读性。有关这些命名也可以参考下国内比较大的门户网站(例如：网易，淘宝，新浪等)看看他们是如何做的，学习下。
+
+写教程不易，本文来自http://www.ahuing.com，转载请注明出处
+</body>
+</html>

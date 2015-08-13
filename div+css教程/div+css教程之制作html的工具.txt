@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//liD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/liD/xhtml1-transitional.lid">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>标题</title>    
+<meta content="{keyword}" name="keywords"/>
+<meta content="{description}" name="description"/>
+<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible"/>
+</head>
+<body>
+div+css教程之制作html的工具
+1.切图工具
+图片的效果对一个网页来说是很重要的,所以说在切图这方面也没什么小巧的工具，一种是用ps(photoshop),另外一种是fw(fireworks)，除了这两个种工具ahuing没有找到一个合适的工具了，如果哪个朋友有更好的切具可以推荐下，目前ahuing用的是第二种，从效率上出发也建议用第二种；
+fw切图是很简单的，打开一张效果图(必须是生成好的一个整张的图片，不存在图层)，你需要切哪一部分就按下快捷键（M）,再用鼠标在图片上选中你要切的部分，如果不能精确定位就按ctrl+鼠标中键滚动，将图片放大，定位好后，再ctrl+c复制背景，接着ctrl+n新建一个图片文件，ctrl+v粘贴，ctrl+shift+x导出图片确定就ok了,就这么简单。这种导出方式导出的图片大小是最小的，fw会删除一些不用的颜色值，当然有些朋友也会用fw的切片工具，这个也是可以的图片大小也是最小的，之所以ahuing直接复制粘贴主要是做图片精灵的方法，图片精灵在下面有一小节会介绍。fw具体使用在这里ahuing就不介绍了，有兴趣的朋友在网上bd一下吧
+
+2.编辑器
+编辑器的选择就很多了，最简单的就一个记事本就可以，另外还有Notepad++、UltraEdit、dw（dreamweaver）、phpdesigner等，但是要提高编写效率还是用dw或者phpdesigner,两者都有代码提示功能（其它的编辑器也有，感觉不怎么智能，也不全），功能比较强大的就是dw了，基本上每个做网页的朋友无不知道它的，不过dw cs5太大了，对于一些配置低电脑是吃不消的，如果是单单做一个静态页面，ahuing建议你用phpdesigner，目前最新版本是7.2.5的，是一款精小的编辑器，内存占用只有20+M，代码提示功能也很强大，用这个时你需要设置几个地方，第一是查看-语言-中文，第二是工具-配置-代码完成，将代码提示所用的时间设置成最小，第三就是自定义了，你可以设置一些快捷键，那些文字的颜色也可以配置成和dw一样，这样一但从dw转到phpdesigner后，界面不会觉得不习惯，ahuing配置成了firebug的颜色^_^;我还喜欢phpdesigner另一个强大的功能就是自动完成，比如说在编辑器里经常用的一个列表布局
+<ul class="plist">
+	<li>
+		<a href="#" target="_blank"><img width="" height="" src="pic/s.png"/></a>
+		<h4><a href="#" target="_blank">标题标题标题</a></h4>
+	</li>
+	<li>
+		<a href="#" target="_blank"><img width="" height="" src="pic/s.png"/></a>
+		<h4><a href="#" target="_blank">标题标题标题</a></h4>
+	</li>
+</ul>
+我会把这部分代码存在编辑器里，并且用"pl"代替；当要用到这个布局时我只需要在编辑器里输入"pl"两个字母，然后ctrl+j，整个代码就出现了，这样在平时写代码时会大大提高编写效率，目前我的编辑器里已经存了几十种布局，用时只需将他们调出来，组合下就行了；（在dw里也有这个功能，就是代码片断）
+3.调试工具
+在和有的朋友交流时，有的居然不知道有个叫firebug的东东，这也太无语，网页调试工具当然选择ff(火狐浏览器)的插件firebug，没有此插件的可以在ff-菜单栏-工具-附加组件-搜索firebug,然后添加到firefox重启ff就可以用了，按F12可以调出firebug界面，用时可以按快捷键ctrl+shift+c鼠标左键点要查看代码的位置，firebug面板里就会出现html代码及对应的css，html和css都可以在线修改并且能实时看到效果，这样可以把某个css调好后（注意调试只是当前的，源文件是不变的），再在源文件里修改就可以了，非常方便，除此之外有时我还用ie（只ie8+才有）的一个自带的工具，此工具类似于firebug，按F12可以调出来，用它只是看是ie下代码
+4.测试工具及技巧
+下面再谈下常用的网页测试工具
+首先说下浏览器，网络发展到现在，已经出现了各种各样的浏览器，我们做网页一般兼容主流浏览器就行了，所谓的主流浏览器主要有ff(firefox),chrome,ieX,opera,
+Safari,傲游,搜狗等；哇这么多！我们都要做兼容，太多了吧?是的都要兼容。有没有好的办法，答案是肯定的。这么多浏览器其实内核只有几个，Trident（iex、Maxthon、The World 、TT、GreenBrowser、AvantBrowser、360），Gecko（ff火狐），Webkit（Safari苹果、chrome谷歌、以及360极速版、傲游3、QQ5），Presto（opera）这样一看就知道怎么办了吧我们只要兼容ieX和ff基本上就ok了。
+再说下测试工具ietester和web superpreview，两个ahuing都用过，最后还是选择了前者，原因很多，主要是后者运行太慢，不支持js，有时需要测试js
+最后总结一下，网页预览和调试以ff+firebug为主，用ietester测试，最后用chrome带一下就可以了
+5.小工具
+取色器：有的人会问ps,fw不是有吸管吗，怎么还要取色器，当你在疯狂的写代码时，用ps，fw你不觉得太繁琐吗，言归正转，直接推荐Nuktool（纳克小工），它可以自定义快捷键这是我非常喜欢的，还可以把色值复制到剪切板，直接粘贴就行，除此之外还有天天取色器，好色鬼，迷你等。
+图片压缩工具：如果你是用fw导出的图片那这个就不必要了，它已经足够小了，这个工具就是Smush.it，是雅虎推荐的一款在线压缩工具网址是http://www.smushit.com/ysmush.it/，并且它也做成了一个firebug的插件，可以在附加组件搜索yslow找到
+代码压缩：当代码完成后，可以将其压缩一下，一是减少大小，二是可以保护代码；ahuing为你推荐css压缩http://www.xland.com.cn/css/geshihuacss.htm，js和html压缩http://tool.chinaz.com/Tools/JsFormat.aspx
+
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//liD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/liD/xhtml1-transitional.lid">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>标题</title>    
+<meta content="{keyword}" name="keywords"/>
+<meta content="{description}" name="description"/>
+<link rel="stylesheet" type="text/css" href="../css/global.css"/>
+<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible"/>
+</head>
+<body>
+div+css教程之基本概念及区别
+1.行内元素和块级元素
+要想把布局运用自如，你必须理解行内元素和块级元素以及它们的区别；
+块元素(block element)表示整个一块是从新行开始（在没有css控制下），其内部可以是行内（内联）元素和其他块元素,常见的块元素如“div,h1-h5,p”。当有了css控制以后，我们就可以改变它们的默认布局模式，把块元素摆放到你想要的位置上去；  
+  
+ 
+行内元素(inline element)，关于inline element的中文叫法，有多种内联元素、内嵌元素、行内元素、直进式元素。基本上没有统一的翻译，爱怎么叫怎么叫吧，ahuing喜欢叫它行内元素，一听名字就知道它是在一行显示的。行内元素只能容纳文本或者其他行内元素，常见行内元素 “a,span,i,b”。  
+  
+块元素(block element)和行内元素(inline element)都是html规范中的概念。而当加入了css控制以后，块元素和内联元素的这种属性差异就不成为差异了，也就是说块级元素可以成行内元素，行内元素也可以成块级元素。比如，我们完全可以把行内元素span加上display:block这样的属性，让他也有每次都从新行开始的属性。而把两个ul加上display:inline属性，它们可以显示在一行，遗憾的是ie6不支持，不过可以用hack解决，后序会介绍。它们还有一个区别就是行内元素设置宽和高是不起用的，但是当将它浮动时，他就有了haslayout,就可以设置宽和高。  
+   
+2.css继承
+继承顾名思义就是元素继承父级的css属性;继承属性可以减少css重复书写的麻烦,可以继承的属性有“color,font,line-height”，例如，将body{color:red}，那么在不给其内的元素再加属性时，body内的字体都显示红色;
+3.盒子模型
+盒子模型，是XHTML+CSS布局页面中的核心！对于理解后面的布局理想很重要，对于初学者来说，很难说出来，但是对于生活中的盒子大家熟悉吧，哈哈，这里提到的盒子模型你就可以理解成现实生活中的盒子就可以了。
+
+那我们想一下，生活中的盒子内部是不是空的好用来存放东西，而里面存放东西的区域我们给他起个名字叫“content(内容)”，而盒子的纸壁给他起个名字叫“border(边框)”，如果盒子内部的东西比如是一块硬盘，但是硬盘怕震动，所以我们需要在硬盘的四周盒子的内部均匀填充一些防震材料，这时硬盘和盒子的边框就有了一定的距离了，我们称这部分距离叫“padding(内边距)”，如果我们需要购买许多块硬盘，还是因为硬盘怕震动所以需要在盒子和盒子之间也需要一些防震材料来填充，那么盒子和盒子之间的距离我们称之为"margin(外边距)"OK~！这下盒子模型的四要素就出来了分别是：content(内容)、border(边框)、padding(内边距)、margin(外边距)，理解“盒子模型”了没？就是这么点知识
+4.注释
+每种语言都有自己的注释方法，html,css也不例外，平时写代码时要养成注释的好习惯，如果不注释的话，也许当时你很清楚，但是时间久了，你肯定模糊，或者让别人看，就很难看懂，不仅注释，还要注释清楚，错误的注释比不注释更糟糕。html注释推荐dedecms程序的注释方法，把注释当做一个标签，例如， <!-- 导航 -->内容 <!-- /导航 -->有开始，有结束;css注释要注意的就是如果注释里有汉字时ie6就识别不出来，有兴趣的朋友可以去测试下，解决方法就是多加几个“*”，如下
+正确：/*** 注释 ***/
+不正确： /*注释*/ 
+5.css代码属性重置
+HTML中标签的默认样式有一个默认属性值，渲染出来的效果不尽相同，我们在写css页面的时候，为了避免在css中重复定义它们，我们需要重置默认样式，以方便统一，从而提高开发效率，提高样式代码的重用，减少重复代码，减少维护成本。在测试一段代码时，直接写*{margin:0;padding:0}.就行了，但是在真正的做页面时，不推荐这样，这样表示，所有标签都要重置一次，这样会大大影响渲染效率，下面是ahuing常用字的css重置代码：
+/*** reset  
+-------------------------------------------------------------- ****/ 
+body,html{color:#444;margin:0;padding:0;font:12px/24px "\5B8B\4F53",san-serif;}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p,select,object{margin:0;padding:0;}
+ul,ol,li{list-style-type:none}
+h1,h2,h3,h4,h5,h6{font-size:12px; font-weight:normal;}
+address,cite,code,em,th,i{font-weight:normal; font-style:normal;}
+img{ border:none }
+object,textarea,img{vertical-align: top;} /*** 兼容用 ***/
+a{text-decoration:none;color:#2C2C2C}
+a:hover{text-decoration:underline;color:#F60;}   
+
+6.css选择器的优先级
+
+class是设置标签的类，id是设置标签的标识，class属性用于指定元素属于何种样式的类。如样式表可以加入.content1 { color: red; } 使用方法：class="content1"
+
+id属性用于定义一个元素的独特的样式。如一个CSS规则#content2 { font-size: 14px } 使用方法：id="content2"
+
+id是一个标签，用于区分不同的结构和内容，就象你的名字，如果一个屋子有2个人同名，就会出现混淆,所以一个页面相同的id只能有一个；
+
+class是一个样式，可以套在任何结构和内容上，就象一件衣服，可以重复使用；
+
+概念上说就是不一样的：
+
+id是先找到结构/内容，再给它定义样式；class是先定义好一种样式，再套给多个结构/内容。
+
+在实际应用的时候，Class可能对文字的排版等比较有用，而ID则对宏观布局和设计放置各种元素较有用,ahuing在做页面时，一般css不是id，只用class,而id留给js调用的
+
+ID 的优先级要高于class,同一个标签的class采用就近原则，离标签最近的级别越高，页面里的css属性高于css文件里的，直接在标签里的属性最高，例如：
+<style>.black{background:#000}</style>
+<div class="black" style="background: #fff;"></div>,
+背景就会显示白色。
+本文来自http://www.ahuing.com,如果需要转帖，请注明来源 ，谢谢大家
+</body>
+</html>
